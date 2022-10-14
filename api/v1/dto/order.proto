@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package v1.dto;
+
+import "google/protobuf/timestamp.proto";
+import "api/v1/dto/common.proto";
+
+enum OrderStatus {
+  ORDER_STATUS_UNSPECIFIED = 0;
+  ORDER_STATUS_CREATED = 1;
+  ORDER_STATUS_PAID = 2;
+  ORDER_STATUS_DELIVERED = 3;
+}
+
+message Order {
+  string uuid = 1;
+  string user_uuid = 2;
+  double amount = 3;
+  string address = 4;
+  OrderStatus status = 5;
+  repeated UserProduct products = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  google.protobuf.Timestamp delivered_at = 9;
+}

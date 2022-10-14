@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package v1.service;
+
+import "api/v1/dto/common.proto";
+import "api/v1/dto/product.proto";
+
+service ProductService {
+  rpc GetAllByFilter(ProductsRequest) returns (ProductResponse) {};
+  rpc GetByUUID(GetByProductUUIDRequest) returns (Product) {};
+}
+
+message ProductsRequest {
+  ProductsRequestFilter filter = 1;
+  Paginator paginator = 2;
+}
+
+message ProductsRequestFilter {
+  repeated string uuid_in = 1;
+  string name_contains = 2;
+  double price_gt = 3;
+  double price_lt = 4;
+  repeated ProductProperty properties_eq = 5;
+}
+
+message ProductResponse {
+  repeated Product items = 1;
+  uint32 count = 2;
+}
+
+message GetByProductUUIDRequest {
+  string product_uuid = 1;
+}

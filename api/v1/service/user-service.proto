@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package v1.service;
+
+import "google/protobuf/timestamp.proto";
+import "api/v1/dto/common.proto";
+import "api/v1/dto/order.proto";
+import "api/v1/dto/user.proto";
+
+service UserService {
+  rpc Register(RegisterRequest) returns (TokenResponse) {};
+  rpc Authorize(AuthorizeRequest) returns (TokenResponse) {};
+  rpc GetByUUID(GetByUserUUIDRequest) returns (User) {};
+  rpc GetUserProducts(GetByUserUUIDRequest) returns (UserProductsResponse) {};
+  rpc PutProduct(PutProductRequest) returns (UserProductsResponse) {};
+  rpc ChangeProduct(ChangeProductRequest) returns (UserProductsResponse) {};
+  rpc CreateOrder(CreateOrderRequest) returns (Order) {};
+}
+
+message RegisterRequest {
+  string phone_number = 1;
+}
+
+message TokenResponse {
+  string token = 1;
+}
+
+message AuthorizeRequest {
+  string phone_number = 1;
+}
+
+message GetByUserUUIDRequest {
+  string user_uuid = 1;
+}
+
+message UserProductsResponse {
+  repeated UserProduct products = 1;
+  uint32 count = 2;
+}
+
+message GetUserProductRequestParams {
+  repeated string uuid_in = 1;
+  repeated string user_uuid_in = 2;
+  repeated string product_uuid_in = 3;
+}
+
+message PutProductRequest {
+  string user_uuid = 1;
+  PutProductRequestParams params = 2;
+}
+
+message PutProductRequestParams {
+  string product_uuid = 1;
+  uint32 product_count = 2;
+}
+
+message ChangeProductRequest {
+  string user_uuid = 1;
+  string user_product_uuid = 2;
+  ChangeProductRequestParams params = 3;
+}
+
+message ChangeProductRequestParams {
+  uint32 count = 1;
+}
+
+message CreateOrderRequest {
+  string user_uuid = 1;
+  CreateOrderRequestParams params = 3;
+}
+
+message CreateOrderRequestParams {
+  repeated UserProduct products = 1;
+  string address = 2;
+  google.protobuf.Timestamp delivered_at = 3;
+}

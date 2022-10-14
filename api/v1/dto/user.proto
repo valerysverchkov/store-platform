@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package v1.dto;
+
+import "google/protobuf/timestamp.proto";
+
+enum UserGroup {
+  USER_GROUP_GUEST = 0;
+  USER_GROUP_CUSTOMER = 1;
+}
+
+enum UserStatus {
+  USER_STATUS_UNSPECIFIED = 0;
+  USER_STATUS_UNCONFIRMED = 1;
+  USER_STATUS_ACTIVE = 2;
+  USER_STATUS_BLOCKED = 3;
+}
+
+message User {
+  string uuid = 1;
+  UserGroup group = 2;
+  UserStatus status = 3;
+  string phone_number = 4;
+  string lastname = 5;
+  string firstname = 6;
+  google.protobuf.Timestamp created_at = 7;
+}
+
+message Session {
+  string uuid = 1;
+  UserGroup group = 2;
+}
+
+enum Role {
+  ROLE_UNSPECIFIED = 0;
+  ROLE_USER = 1;
+  ROLE_PRODUCT = 2;
+  ROLE_ORDER = 3;
+  ROLE_USER_PRODUCT = 4;
+}
+
+enum Permission {
+  PERMISSION_UNSPECIFIED = 0;
+  PERMISSION_READ = 1;
+  PERMISSION_WRITE = 2;
+}

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package pb.v1;
+
+message Paginator {
+  uint32 offset = 1;
+  uint32 limit = 2;
+}
+
+message UserProduct {
+  string uuid = 1;
+  string product_uuid = 2;
+  uint32 count = 3;
+}
+
+message Error {
+  uint32 code = 1;
+  string message = 2;
+  map<string, string> details = 3;
+}
